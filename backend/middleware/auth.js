@@ -1,6 +1,7 @@
 const ErrorHandler = require('../utils/errorHandler')
 const jwt = require('jsonwebtoken')
 const User = require('../model/UserModel')
+const Apartment = require('../model/ApartmentModel')
 
 authenticate = async (req, res, next)=>{
     const authHeaders = req.headers['authorization']
@@ -25,7 +26,24 @@ isSyndic = (req, res, next)=>{
     }
 }
 
+isCreator = async (req, res, next)=>{
+    const userId = req.user._id.toString()
+    const apartmentId = req.params.id
+    const apartment = await Apartment.findOne({_id:apartmentId})
+    
+    if(!apartment){
+        return next(new ErrorHandler('No Apartment Found', 404))
+    }
+    const creatorId = apartment.syndic.toString()
+
+    if(userId !== creatorId){
+        return next(new ErrorHandler('You cant Operate on this apartment'))
+    }
+    next()
+}
+
 module.exports = {
     authenticate,
-    isSyndic
+    isSyndic,
+    isCreator
 }

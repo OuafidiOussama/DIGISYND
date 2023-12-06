@@ -1,7 +1,7 @@
 const Apartment = require('../model/ApartmentModel')
+const ErrorHandler = require('../utils/errorHandler')
 
-createApartment = async (req, res, next) =>
-{
+createApartment = async (req, res, next) =>{
     try {
         const data = {
             apartmentNumber: req.body.apartmentNumber,
@@ -19,4 +19,22 @@ createApartment = async (req, res, next) =>
     }
 }
 
-module.exports = {createApartment}
+deleteApartment = async (req, res, next)=>{
+    try {
+        const apartmentId = req.params.id
+        const deletedApartment = await Apartment.findOneAndDelete({_id: apartmentId})
+
+        if(deletedApartment){
+            res.status(200).json({
+                success: true,
+                message: 'post deleted successfully !'
+            })
+        } else{
+            next(new ErrorHandler("Apartment Doesn't exist", 404))
+        }
+    } catch (error) {
+        next(error)
+    }
+}
+
+module.exports = {createApartment, deleteApartment}
