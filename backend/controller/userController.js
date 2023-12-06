@@ -44,13 +44,19 @@ login = async (req, res, next)=>{
             return next(new ErrorResponse('Invalid Email Or Password', 400))
         }
 
-        res.status(200).json({
-            success: true,
-            user: user
-        })
+       sendToken(user, 200, res)
     } catch (error) {
         next(error)
     }
+}
+
+const sendToken = async (user, statusCode, res)=>{
+    const token = await user.signJwtToken();
+    res.status(statusCode).json({
+        success: true,
+        user: user,
+        jwtToken: token
+    })
 }
 
 module.exports = {register, login}
