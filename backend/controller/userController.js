@@ -26,4 +26,31 @@ register = async(req, res, next)=>{
     }
 }
 
-module.exports = {register}
+login = async (req, res, next)=>{
+    try {
+        const {email, password} = req.body
+        if(!email){
+            return next(new ErrorResponse('Please Provide Your Email Address', 403))
+        }
+        if(!password){
+            return next(new ErrorResponse('Please Provide A Password', 403 ))
+        }
+        const user = await User.findOne({email})
+        if(!user){
+            return next(new ErrorResponse('Invalid Email Or Password', 400))
+        }
+        const isValid = await user.comparePassword(password)
+        if(!isValid){
+            return next(new ErrorResponse('Invalid Email Or Password', 400))
+        }
+
+        res.status(200).json({
+            success: true,
+            user: user
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+module.exports = {register, login}
