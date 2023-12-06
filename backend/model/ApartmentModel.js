@@ -3,7 +3,7 @@ const {ObjectId} = mongoose.Schema
 
 const apartmentSchema = new mongoose.Schema({
     apartmentNumber:{
-        type: String,
+        type: Number,
         trim: true,
         required: [true, 'Please Privide Your Apartment Number'],
     },
@@ -13,9 +13,10 @@ const apartmentSchema = new mongoose.Schema({
     },
     apartmentOwner:{
         type: Object,
-        ownerName: {type: String, required:[true, 'Please Provide apartment Owner full name']},
-        cin: {type: String, required:[true, 'Please Provide apartment Owner CIN']},
-        default: null
+        ownerName: {type: String, trim:true},
+        cin: {type: String, trim:true},
+        picture: {type: String},
+        loaned: {type: Date, default: Date.now},
     },
 
 }, {timestamps: true})

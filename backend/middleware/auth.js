@@ -17,6 +17,15 @@ authenticate = async (req, res, next)=>{
     }
 }
 
+isSyndic = (req, res, next)=>{
+    if(req.user.role !== 'syndic'){
+        return next(new ErrorHandler('Access denied, you must be a syndic', 401))
+    }else {
+        next()
+    }
+}
+
 module.exports = {
-    authenticate
+    authenticate,
+    isSyndic
 }
