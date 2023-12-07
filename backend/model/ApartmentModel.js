@@ -13,12 +13,12 @@ const apartmentSchema = new mongoose.Schema({
     },
     apartmentOwner:{
         type: Object,
+        required:[true, 'please Provide an owner'],
         ownerName: {type: String, trim:true},
         cin: {type: String, trim:true},
         picture: {type: String},
-        loaned: {type: Date, default: Date.now},
+        loaned: {type: Date, default: Date.now()},
     },
-
 }, {timestamps: true})
 
 
