@@ -13,7 +13,8 @@ register = async(req, res, next)=>{
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        role: req.body.role
     }
     try {
         const user = await User.create(data)

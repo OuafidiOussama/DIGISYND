@@ -18,6 +18,14 @@ authenticate = async (req, res, next)=>{
     }
 }
 
+isSuper = (req, res, next)=>{
+    if(req.user.role  !== 'super'){
+        return next(new ErrorHandler('Access Denied, you must be a super Admin', 401))
+    } else{
+        next()
+    }
+}
+
 isSyndic = (req, res, next)=>{
     if(req.user.role !== 'syndic'){
         return next(new ErrorHandler('Access denied, you must be a syndic', 401))
@@ -45,5 +53,6 @@ isCreator = async (req, res, next)=>{
 module.exports = {
     authenticate,
     isSyndic,
-    isCreator
+    isCreator, 
+    isSuper
 }
