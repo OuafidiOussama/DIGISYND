@@ -2,6 +2,7 @@ const ErrorHandler = require('../utils/errorHandler')
 const jwt = require('jsonwebtoken')
 const User = require('../model/UserModel')
 const Apartment = require('../model/ApartmentModel')
+const Bill = require('../model/BillModel')
 
 authenticate = async (req, res, next)=>{
     const authHeaders = req.headers['authorization']
@@ -34,7 +35,7 @@ isSyndic = (req, res, next)=>{
     }
 }
 
-isCreator = async (req, res, next)=>{
+isCreatorApartment = async (req, res, next)=>{
     const userId = req.user._id.toString()
     const apartmentId = req.params.id
     const apartment = await Apartment.findOne({_id:apartmentId})
@@ -49,10 +50,26 @@ isCreator = async (req, res, next)=>{
     }
     next()
 }
+isCreatorBill = async (req, res, next)=>{
+    const userId = req.user._id.toString()
+    const BillId = req.params.id
+    const bill = await Bill.findOne({_id:BillId})
+    
+    if(!bill){
+        return next(new ErrorHandler('No Bill Found', 404))
+    }
+    const creatorId = bill.syndic.toString()
+
+    if(userId !== creatorId){
+        return next(new ErrorHandler('You cant Operate on this Bill'))
+    }
+    next()
+}
 
 module.exports = {
     authenticate,
     isSyndic,
-    isCreator, 
+    isCreatorApartment,
+    isCreatorBill,
     isSuper
 }

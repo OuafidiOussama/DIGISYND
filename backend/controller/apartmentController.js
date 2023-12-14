@@ -1,12 +1,29 @@
 const Apartment = require('../model/ApartmentModel')
 const ErrorHandler = require('../utils/errorHandler')
 
+getAllApartments = async (req, res, next)=>{
+    try {
+        const apartments = await Apartment.find()
+        res.status(200).json({
+            success: true,
+            apartments
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 createApartment = async (req, res, next) =>{
     try {
         const data = {
             apartmentNumber: req.body.apartmentNumber,
+            apartmentFloor: req.body.apartmentFloor,
             syndic: req.user._id,
-            apartmentOwner: req.body.apartmentOwner
+            apartmentOwner: {
+                ownerName: req.body.apartmentOwner.ownerName,
+                cin: req.body.apartmentOwner.cin,
+                picture: req.body.apartmentOwner.picture
+            }
         }
         const apartment = await Apartment.create(data)
         res.status(201).json({
@@ -67,6 +84,7 @@ deleteApartment = async (req, res, next)=>{
 }
 
 module.exports = {
+    getAllApartments,
     createApartment,
     updateApartment,
     deleteApartment

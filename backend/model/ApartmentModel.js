@@ -7,6 +7,11 @@ const apartmentSchema = new mongoose.Schema({
         trim: true,
         required: [true, 'Please Privide Your Apartment Number'],
     },
+    apartmentFloor: {
+        type: Number,
+        trim: true,
+        required: [true, 'please Provide the apartment floor']
+    },
     syndic:{
         type: ObjectId,
         ref: 'users'
@@ -17,8 +22,8 @@ const apartmentSchema = new mongoose.Schema({
         ownerName: {type: String, trim:true},
         cin: {type: String, trim:true},
         picture: {type: String},
-        loaned: {type: Date, default: Date.now()},
     },
+    
 }, {timestamps: true})
 
 
