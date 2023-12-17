@@ -20,9 +20,9 @@ createApartment = async (req, res, next) =>{
             apartmentFloor: req.body.apartmentFloor,
             syndic: req.user._id,
             apartmentOwner: {
-                ownerName: req.body.apartmentOwner.ownerName,
-                cin: req.body.apartmentOwner.cin,
-                picture: req.body.apartmentOwner.picture
+                ownerName: req.body.ownerName,
+                cin: req.body.cin,
+                picture: req.body.picture
             }
         }
         const apartment = await Apartment.create(data)

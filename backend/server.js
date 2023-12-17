@@ -6,7 +6,7 @@ const errorHandler = require('./middleware/error')
 const connectDB = require('./config/db') 
 connectDB()
 
-app.use(express.json())
+app.use(express.json({limit: '10mb'}))
 app.use(cors())
 app.use(errorHandler)
 

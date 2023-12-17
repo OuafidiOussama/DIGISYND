@@ -19,7 +19,7 @@ export default function LoginForm() {
             navigate('/syndic')
         }
     }
-  })
+  },[isAuthenticated])
   const navigate = useNavigate()
   const formik = useFormik({
     initialValues:{

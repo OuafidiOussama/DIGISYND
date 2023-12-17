@@ -88,4 +88,10 @@ userProfile = async (req, res, next)=>{
     })
 }
 
-module.exports = {register, login, userProfile, changePassword}
+logout = (req,res, next)=>{
+    res.status(200).json({
+        success: true,
+        message: "logout Successfully"
+    })
+}
+module.exports = {register, login, userProfile, changePassword, logout}

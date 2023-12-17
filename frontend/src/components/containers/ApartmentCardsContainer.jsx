@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import ApartmentCard from '../atoms/ApartmentCard'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllApartmentsAction } from '../../redux/actions/apartmentAction';
+import { Skeleton } from '@mui/material';
 
 export default function ApartmentCardsContainer({isFlipped, handleFLip}) {
     const dispatch = useDispatch()
@@ -12,7 +13,7 @@ export default function ApartmentCardsContainer({isFlipped, handleFLip}) {
 
   return (
     <div className='flex gap-5 flex-wrap w-full '>
-        {payload && payload.apartments.map((apart =><ApartmentCard key={apart._id} apartment={apart} isFlipped={isFlipped} handleFLip={handleFLip}/>))}
+        {loading ? <Skeleton width={300} height={150}/>: (payload && payload.apartments.map((apart =><ApartmentCard key={apart._id} apartment={apart} isFlipped={isFlipped} handleFLip={handleFLip}/>)))}
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import { userReducerLogin, userReducerLogout, userReducerProfile, userReducerRegister } from "./userReducer";
-import { apartmentReducerGetAll } from "./apartmentReducer";
+import { apartmentReducerGetAll, createApartmentReducer } from "./apartmentReducer";
 
 
 export default combineReducers({
@@ -8,5 +8,6 @@ export default combineReducers({
     login: userReducerLogin,
     profile: userReducerProfile,
     logout: userReducerLogout,
-    getApartments: apartmentReducerGetAll
+    getApartments: apartmentReducerGetAll,
+    createApartment: createApartmentReducer
 })

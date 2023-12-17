@@ -78,13 +78,13 @@ export const userProfileAction = () => async(dispatch) =>{
     }
 }
 
-export const userLogoutAction = (user) => async(dispatch) =>{
+export const userLogoutAction = () => async(dispatch) =>{
     dispatch({
         type: USER_LOGOUT_REQUEST
     })
     try {
         localStorage.removeItem('userInfo')
-        const {data} = await UserServices.logout(user)
+        const {data} = await UserServices.logout()
         dispatch({
             type: USER_LOGOUT_SUCCESS,
             payload: data

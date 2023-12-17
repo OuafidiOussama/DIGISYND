@@ -1,4 +1,4 @@
-import { GET_APARTMENT_FAIL, GET_APARTMENT_REQUEST, GET_APARTMENT_SUCCESS } from "../types/apartmentTypes";
+import { ADD_APARTMENT_FAIL, ADD_APARTMENT_REQUEST, ADD_APARTMENT_SUCCESS, GET_APARTMENT_FAIL, GET_APARTMENT_REQUEST, GET_APARTMENT_SUCCESS } from "../types/apartmentTypes";
 
 export const apartmentReducerGetAll = (state= {}, action)=>{
     const {type, payload} = action
@@ -20,5 +20,28 @@ export const apartmentReducerGetAll = (state= {}, action)=>{
             }
         default:
             return state
+    }
+}
+
+export const createApartmentReducer = (state= {}, action)=>{
+    const {type, payload} = action
+
+    switch(type) {
+        case ADD_APARTMENT_REQUEST:
+            return {
+                loading: true
+            }
+        case ADD_APARTMENT_SUCCESS:
+            return {
+                loading: false, 
+                payload
+            }
+        case ADD_APARTMENT_FAIL:
+            return {
+                loading: false,
+                error: payload
+            }
+        default:
+            return state    
     }
 }
