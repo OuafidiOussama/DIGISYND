@@ -3,8 +3,8 @@ import { Outlet } from 'react-router-dom'
 
 export default function Layout() {
   return (
-    // <Suspense >
+    <Suspense >
         <Outlet />
-    // </Suspense>
+    </Suspense>
   )
 }
