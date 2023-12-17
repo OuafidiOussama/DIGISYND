@@ -1,18 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NavBar from '../components/partials/NavBar'
 import Card from '../components/atoms/Card'
-import ApartmentCard from '../components/atoms/ApartmentCard';
 import SyndicSideBar from '../components/partials/SyndicSideBar';
+import ApartmentCardsContainer from '../components/caontainers/ApartmentCardsContainer';
 
 export default function SyndicDash() {
   const [isFlipped, setFlipped] = useState(false);
   const [showSideBar, setSideBar] = useState(false);
+
   const handleFLip = ()=>{
     setFlipped(!isFlipped)
   }
   const handleSideBar = ()=>{
     setSideBar(!showSideBar)
   }
+  
+
 
   return (
     <div className='duration-300 transition-all'>
@@ -28,7 +31,7 @@ export default function SyndicDash() {
             </div>
             <div className='h-96'>
               <div className='min-h-full w-full bg-white overflow-y-auto rounded-xl p-5'>
-                <ApartmentCard isFlipped={isFlipped} handleFLip={handleFLip}/>
+                <ApartmentCardsContainer isFlipped={isFlipped} handleFLip={handleFLip} />
               </div>
             </div>
           </div>

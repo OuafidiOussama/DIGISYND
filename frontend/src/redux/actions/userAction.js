@@ -55,7 +55,7 @@ export const userLoginAction = (user) => async(dispatch) =>{
             type: USER_LOGIN_FAIL,
             payload: error.response.data.error
         })
-        toast.error(error.response.data.error)
+        toast.error('Wrong Email Or Password')
     }
 }
 

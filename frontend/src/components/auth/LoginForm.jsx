@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import TextField from '@mui/material/TextField';
 import { loginSchema } from '../../validators/AuthValidation';
 import {useFormik} from 'formik'
@@ -10,6 +10,16 @@ import { useNavigate } from 'react-router-dom';
 
 export default function LoginForm() {
   const dispatch = useDispatch()
+  const {loading, isAuthenticated, userInfo} = useSelector(state=>state.login)
+  useEffect(()=>{
+    if(isAuthenticated){
+        if(userInfo.user.role === 'super'){
+            navigate('/admin')
+        }else{
+            navigate('/syndic')
+        }
+    }
+  })
   const navigate = useNavigate()
   const formik = useFormik({
     initialValues:{
@@ -20,7 +30,6 @@ export default function LoginForm() {
     onSubmit: async (values, actions)=>{
         await dispatch(userLoginAction(values))
         actions.resetForm()
-        navigate("/syndic")
     }
   })
   return (
