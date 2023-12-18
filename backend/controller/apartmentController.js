@@ -40,12 +40,13 @@ updateApartment = async (req, res, next)=>{
     try {
         const apartmentId = req.params.id
         const currentApartment = await Apartment.findById({_id:apartmentId})
-        console.log(req.body.apartmentOwner.ownerName);
         const data = {
+            apartmentNumber: req.body.apartmentNumber || currentApartment.apartmentNumber,
+            apartmentFloor: req.body.apartmentFloor || currentApartment.apartmentFloor,
             apartmentOwner: {
-                ownerName: req.body.apartmentOwner.ownerName || currentApartment.apartmentOwner.ownerName,
-                cin: req.body.apartmentOwner.cin || currentApartment.apartmentOwner.cin,
-                picture: req.body.apartmentOwner.picture || currentApartment.apartmentOwner.picture,
+                ownerName: req.body.ownerName || currentApartment.apartmentOwner.ownerName,
+                cin: req.body.cin || currentApartment.apartmentOwner.cin,
+                picture: req.body.picture || currentApartment.apartmentOwner.picture,
             }
         }
         const updatedApartment = await Apartment.findOneAndUpdate(

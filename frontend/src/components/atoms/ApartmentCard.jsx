@@ -1,7 +1,18 @@
+import { Icon } from '@iconify/react'
 import React from 'react'
 
-export default function ApartmentCard({isFlipped, handleFLip, apartment}) {
+export default function ApartmentCard({isFlipped, handleFLip, apartment, onUpdate}) {
   const {apartmentFloor, apartmentNumber, _id, apartmentOwner, createdAt} = apartment
+
+  const handleUpdateApart = () =>{
+    if(onUpdate){
+      onUpdate({
+        isUpdate: true,
+        apartToUpdate: apartment
+      })
+    }
+  }
+
   return (
     <div className={`flip ${isFlipped ? 'flipped' : ''} w-[300px] h-[150px] rounded-xl overflow-hidden flex`}>
         <div className='flip-content '>
@@ -10,7 +21,13 @@ export default function ApartmentCard({isFlipped, handleFLip, apartment}) {
             <p className='text-lg font-bold pb-2'>{apartmentOwner.ownerName}</p>
             <p className='text-lg font-bold pb-2'>{apartmentOwner.cin}</p>
             <p className='text-lg font-bold pb-2'>#{apartmentNumber}</p>
+            <div className='flex w-full justify-between relative'>
+            <div className='flex relative -top-1'>
+            <Icon icon="bxs:edit" className='w-6 h-6 text-green-500' onClick={handleUpdateApart}/>
+            <Icon icon="ic:round-delete" className='w-6 h-6 text-red-500' />
+            </div>
             <p className='text-xs font-semibold text-right'>{createdAt}</p>
+            </div>
           </div>
           <div className='w-full h-full flex flip-front bg-[#d9d9d99a]'>
             <div className='w-2/5 h-full relative flex justify-center items-center cursor-pointer' onClick={handleFLip}>

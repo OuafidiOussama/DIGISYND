@@ -10,8 +10,8 @@ class ApartmentServices {
         return http.post("/apartment/create", data)
     }
 
-    update(data, id){
-        return http.patch(`/apartment/update/${id}`, data)
+    update(id, data){
+        return http.put(`/apartment/update/${id}`, data)
     }
 
     delete(id){
