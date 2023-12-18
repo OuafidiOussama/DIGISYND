@@ -31,6 +31,7 @@ export default function ApartmentForm({showForm, setShowForm, isUpdate, setIsUpd
           actions.resetForm()
           setIsUpdate(false)
           setApartToUpdate(null)
+          setShowForm(false)
         }
       }else{
         dispatch(createApartmentAction(values))

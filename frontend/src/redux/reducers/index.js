@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import { userReducerLogin, userReducerLogout, userReducerProfile, userReducerRegister } from "./userReducer";
-import { apartmentReducerGetAll, createApartmentReducer, updateApartmentReducer } from "./apartmentReducer";
+import { apartmentReducerGetAll, createApartmentReducer, deleteApartmentReducer, updateApartmentReducer } from "./apartmentReducer";
 
 
 export default combineReducers({
@@ -10,5 +10,6 @@ export default combineReducers({
     logout: userReducerLogout,
     getApartments: apartmentReducerGetAll,
     createApartment: createApartmentReducer,
-    updateApartment: updateApartmentReducer 
+    updateApartment: updateApartmentReducer,
+    deleteApartment: deleteApartmentReducer
 })

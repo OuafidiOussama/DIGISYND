@@ -1,7 +1,10 @@
 import { Icon } from '@iconify/react'
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { deleteApartmentAction } from '../../redux/actions/apartmentAction'
 
 export default function ApartmentCard({isFlipped, handleFLip, apartment, onUpdate}) {
+  const dispatch= useDispatch()
   const {apartmentFloor, apartmentNumber, _id, apartmentOwner, createdAt} = apartment
 
   const handleUpdateApart = () =>{
@@ -10,6 +13,12 @@ export default function ApartmentCard({isFlipped, handleFLip, apartment, onUpdat
         isUpdate: true,
         apartToUpdate: apartment
       })
+    }
+  }
+  
+  const handleDelete = (e, id) =>{
+    if(window.confirm('Are you sure you  wanna delete this post')){
+      dispatch(deleteApartmentAction(id))
     }
   }
 
@@ -24,7 +33,7 @@ export default function ApartmentCard({isFlipped, handleFLip, apartment, onUpdat
             <div className='flex w-full justify-between relative'>
             <div className='flex relative -top-1'>
             <Icon icon="bxs:edit" className='w-6 h-6 text-green-500' onClick={handleUpdateApart}/>
-            <Icon icon="ic:round-delete" className='w-6 h-6 text-red-500' />
+            <Icon icon="ic:round-delete" className='w-6 h-6 text-red-500' onClick={(e)=>handleDelete(e,_id)} />
             </div>
             <p className='text-xs font-semibold text-right'>{createdAt}</p>
             </div>
