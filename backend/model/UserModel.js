@@ -51,7 +51,7 @@ userSchema.methods.comparePassword = async function (enteredPassword){
 }
 
 userSchema.methods.signJwtToken = function() {
-    return jwt.sign({id: this.id}, process.env.SECRET_KEY, {expiresIn: '1h'})
+    return jwt.sign({id: this.id}, process.env.SECRET_KEY, {expiresIn: '6h'})
 }
 
 

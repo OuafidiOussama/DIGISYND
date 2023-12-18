@@ -15,8 +15,11 @@ export default function SyndicDash() {
   const [apartToUpdate, setApartToUpdate] = useState(null)
   const {loading,payload} = useSelector(state=>state.getApartments)
 
-  const handleFLip = ()=>{
-    setFlipped(!isFlipped)
+  const handleFLip = (apartId)=>{
+    setFlipped((prevState)=>({
+      ...prevState,
+      [apartId]: !prevState[apartId]
+    }))
   }
   const handleSideBar = ()=>{
     setSideBar(!showSideBar)

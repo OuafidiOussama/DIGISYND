@@ -1,6 +1,5 @@
 import { ADD_APARTMENT_FAIL, ADD_APARTMENT_REQUEST, ADD_APARTMENT_SUCCESS, DELETE_APARTMENT_FAIL, DELETE_APARTMENT_REQUEST, DELETE_APARTMENT_SUCCESS, GET_APARTMENT_FAIL, GET_APARTMENT_REQUEST, GET_APARTMENT_SUCCESS, UPDATE_APARTMENT_FAIL, UPDATE_APARTMENT_REQUEST, UPDATE_APARTMENT_SUCCESS } from "../types/apartmentTypes";
 import { toast } from "react-toastify"
-import 'react-toastify/dist/ReactToastify.css';
 import apartmentService from "../services/apartment.service";
 
 export const getAllApartmentsAction = () =>async(dispatch)=>{

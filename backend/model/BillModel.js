@@ -9,7 +9,13 @@ const billSchema = new mongoose.Schema({
     syndic:{
         type: ObjectId,
         ref: "users"
-    }
+    },
+    monthPaid:[{
+        type: String,
+    }],
+    paidAt:[{
+        type: Date
+    }]
 },{timestamps: true})
 
 

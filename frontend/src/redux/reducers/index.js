@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import { userReducerLogin, userReducerLogout, userReducerProfile, userReducerRegister } from "./userReducer";
 import { apartmentReducerGetAll, createApartmentReducer, deleteApartmentReducer, updateApartmentReducer } from "./apartmentReducer";
+import { payApartmentReducer, unPayApartmentReducer } from "./billReducer";
 
 
 export default combineReducers({
@@ -11,5 +12,7 @@ export default combineReducers({
     getApartments: apartmentReducerGetAll,
     createApartment: createApartmentReducer,
     updateApartment: updateApartmentReducer,
-    deleteApartment: deleteApartmentReducer
+    deleteApartment: deleteApartmentReducer,
+    payApartment: payApartmentReducer,
+    unPayApartment: unPayApartmentReducer
 })

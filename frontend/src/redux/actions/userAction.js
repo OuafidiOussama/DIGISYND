@@ -13,7 +13,6 @@ import {
     USER_LOGOUT_FAIL,
 } from "../types/userTypes"
 import { toast } from "react-toastify"
-import 'react-toastify/dist/ReactToastify.css';
 import UserServices from '../services/user.service'
 
 

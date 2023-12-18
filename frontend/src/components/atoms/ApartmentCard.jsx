@@ -2,6 +2,7 @@ import { Icon } from '@iconify/react'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { deleteApartmentAction } from '../../redux/actions/apartmentAction'
+import { payApartmentAction } from '../../redux/actions/billAction'
 
 export default function ApartmentCard({isFlipped, handleFLip, apartment, onUpdate}) {
   const dispatch= useDispatch()
@@ -14,6 +15,10 @@ export default function ApartmentCard({isFlipped, handleFLip, apartment, onUpdat
         apartToUpdate: apartment
       })
     }
+  }
+
+  const handlePaiment = ()=>{
+    dispatch(payApartmentAction(_id))
   }
   
   const handleDelete = (e, id) =>{
@@ -33,7 +38,7 @@ export default function ApartmentCard({isFlipped, handleFLip, apartment, onUpdat
             <div className='flex w-full justify-between relative'>
             <div className='flex relative -top-1'>
             <Icon icon="bxs:edit" className='w-6 h-6 text-green-500' onClick={handleUpdateApart}/>
-            <Icon icon="ic:round-delete" className='w-6 h-6 text-red-500' onClick={(e)=>handleDelete(e,_id)} />
+            <Icon icon="ic:round-delete" className='w-6 h-6 text-red-500' onClick={(e)=>handleDelete(e,_id)} /> 
             </div>
             <p className='text-xs font-semibold text-right'>{createdAt}</p>
             </div>
@@ -48,7 +53,7 @@ export default function ApartmentCard({isFlipped, handleFLip, apartment, onUpdat
               <div className='w-full'>
                 <p className='text-center font- text-3xl'>floor: #{apartmentFloor}</p>
               </div>
-              <button className='bg-green-500 w-full py-1.5 rounded-md text-white font-bold text-lg'>Payed</button>
+              <button className='bg-green-500 w-full py-1.5 rounded-md text-white font-bold text-lg' onClick={handlePaiment}>Payed</button>
             </div>
           </div>
         </div>

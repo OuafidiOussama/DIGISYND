@@ -21,16 +21,34 @@ billPay = async (req, res, next) =>{
         if(!doesExist){
             next(new ErrorHandler('Apartment doesnt exist', 404))
         }
-        const data = {
-            apartment: apartmentId,
-            syndic: req.user._id
+        const bill = await Bill.findOne({apartment: apartmentId}) 
+        const date = new Date()
+        const year = date.getFullYear()
+        const month = date.getMonth() + 1
+        const newDate = ([month, year].join('/')).toString()
+        if(bill){
+            const newBill = await Bill.findByIdAndUpdate(
+                {_id: bill._id},
+                {$addToSet:{monthPaid: newDate}, $addToSet:{paidAt: Date.now()}},
+                {new: true}
+            )
+            res.status(201).json({
+                success: true,
+                newBill
+            })
+        } else{
+            const data = {
+                apartment: apartmentId,
+                syndic: req.user._id,
+                monthPaid: newDate,
+                paidAt: Date.now()
+            }
+            const createdBill = await Bill.create(data)
+            res.status(201).json({
+                success: true,
+                createdBill
+            })
         }
-        const bill = await Bill.create(data)
-        res.status(201).json({
-            success: true,
-            bill
-        })
-
     } catch (error) {
         next(error)
     }
@@ -39,9 +57,8 @@ billPay = async (req, res, next) =>{
 
 billUnpay = async (req, res, next)=>{
     try {
-        const billId = req.params.id
-        const deletedBill = await Bill.findOneAndDelete({_id: billId})
-
+        const apartId = req.params.id
+        const deletedBill = await Bill.findOneAndDelete({apartment: apartId})
         if(!deletedBill){
             next(new ErrorHandler("Bill Doesn't exist", 404)) 
         }
