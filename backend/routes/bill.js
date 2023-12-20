@@ -5,7 +5,6 @@ const router = express.Router()
 
 router.get('/all', authenticate, isSyndic, getAllBills)
 router.post('/pay/:id', authenticate, isSyndic, billPay)
-router.delete('/unpay/:id', authenticate, isSyndic, isCreatorBill, billUnpay)
 
 
 module.exports = router

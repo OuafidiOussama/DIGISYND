@@ -2,9 +2,8 @@ const supertest =require("supertest")
 const app = require('../app')
 const mongoose = require('mongoose')
 
-describe('Test userController', () => { 
+describe('Test apartmentController', () => { 
     let jwtToken;
-    let user;
 
     beforeAll(async()=>{
         const authenticationRes = await supertest(app)
@@ -15,7 +14,6 @@ describe('Test userController', () => {
         })
 
         jwtToken = authenticationRes.body.jwtToken
-        user = authenticationRes.body.user
     })
 
     afterAll(async()=>{
@@ -114,7 +112,7 @@ describe('Test userController', () => {
 
     it("Should Delete an apartment", async () => {
         const response = await supertest(app)
-        .delete(`/api/apartment/delete/6582ed09d0b26f77184d3f18`)
+        .delete(`/api/apartment/delete/6582fa6b00d6c771b8845964`)
         .set('Authorization', `Bearer ${jwtToken}`)
         .accept("")
 
