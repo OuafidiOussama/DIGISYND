@@ -81,9 +81,6 @@ updateApartment = async (req, res, next)=>{
             data,
             {new: true}
         )
-        if (!updatedApartment) {
-            next(new ErrorHandler('Something Went Wrong', 404))
-        }
         res.status(200).json({
             success: true,
             updatedApartment,
@@ -96,12 +93,8 @@ updateApartment = async (req, res, next)=>{
 deleteApartment = async (req, res, next)=>{
     try {
         const apartmentId = req.params.id
-        const deletedApartment = await Apartment.findOneAndDelete({_id: apartmentId})
+        await Apartment.findOneAndDelete({_id: apartmentId})
 
-        if(!deletedApartment){
-            next(new ErrorHandler("Apartment Doesn't exist", 404)) 
-        }
-        
         res.status(200).json({
             success: true,
             message: 'post deleted successfully !'
