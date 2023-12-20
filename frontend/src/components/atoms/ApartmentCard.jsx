@@ -3,11 +3,16 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { deleteApartmentAction } from '../../redux/actions/apartmentAction'
 import { payApartmentAction } from '../../redux/actions/billAction'
+import moment from 'moment'
+import { PDFDownloadLink } from '@react-pdf/renderer'
+import Bill from '../syndic/Bill'
+
+
 
 export default function ApartmentCard({isFlipped, handleFLip, apartment, onUpdate}) {
   const dispatch= useDispatch()
-  const {apartmentFloor, apartmentNumber, _id, apartmentOwner, createdAt} = apartment
-
+  const {apartmentFloor, apartmentNumber, _id, apartmentOwner, createdAt, isPaid} = apartment
+  const date = moment(createdAt).fromNow()
   const handleUpdateApart = () =>{
     if(onUpdate){
       onUpdate({
@@ -18,11 +23,13 @@ export default function ApartmentCard({isFlipped, handleFLip, apartment, onUpdat
   }
 
   const handlePaiment = ()=>{
-    dispatch(payApartmentAction(_id))
+    if(window.confirm('Are you sure you wanna pay this bill ?')){
+      dispatch(payApartmentAction(_id))
+    }
   }
   
   const handleDelete = (e, id) =>{
-    if(window.confirm('Are you sure you  wanna delete this post')){
+    if(window.confirm('Are you sure you  wanna delete this post ?')){
       dispatch(deleteApartmentAction(id))
     }
   }
@@ -38,9 +45,12 @@ export default function ApartmentCard({isFlipped, handleFLip, apartment, onUpdat
             <div className='flex w-full justify-between relative'>
             <div className='flex relative -top-1'>
             <Icon icon="bxs:edit" className='w-6 h-6 text-green-500' onClick={handleUpdateApart}/>
-            <Icon icon="ic:round-delete" className='w-6 h-6 text-red-500' onClick={(e)=>handleDelete(e,_id)} /> 
+            <Icon icon="ic:round-delete" className='w-6 h-6 text-red-500' onClick={(e)=>handleDelete(e,_id)} />
+            {isPaid ? <PDFDownloadLink document={<Bill apartment={apartment} />} fileName='bill.pdf' >
+              <button><Icon icon="teenyicons:pdf-outline" className='w-6 h-6 text-red-500' /></button>
+            </PDFDownloadLink>: ""}
             </div>
-            <p className='text-xs font-semibold text-right'>{createdAt}</p>
+            <p className='text-xs font-semibold text-right'>{date}</p>
             </div>
           </div>
           <div className='w-full h-full flex flip-front bg-[#d9d9d99a]'>
@@ -53,7 +63,7 @@ export default function ApartmentCard({isFlipped, handleFLip, apartment, onUpdat
               <div className='w-full'>
                 <p className='text-center font- text-3xl'>floor: #{apartmentFloor}</p>
               </div>
-              <button className='bg-green-500 w-full py-1.5 rounded-md text-white font-bold text-lg' onClick={handlePaiment}>Payed</button>
+              <button className={`${isPaid ? 'bg-gray-400 cursor-not-allowed' : 'bg-green-500' } w-full py-1.5 rounded-md text-white font-bold text-lg`} disabled={isPaid} onClick={handlePaiment}>{isPaid ? 'PAID' : 'PAY' }</button>
             </div>
           </div>
         </div>

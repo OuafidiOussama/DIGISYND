@@ -10,9 +10,6 @@ const billSchema = new mongoose.Schema({
         type: ObjectId,
         ref: "users"
     },
-    monthPaid:[{
-        type: String,
-    }],
     paidAt:[{
         type: Date
     }]

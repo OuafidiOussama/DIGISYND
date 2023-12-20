@@ -1,13 +1,40 @@
 const Apartment = require('../model/ApartmentModel')
+const Bill = require('../model/BillModel')
 const ErrorHandler = require('../utils/errorHandler')
 
 getAllApartments = async (req, res, next)=>{
     try {
-        const apartments = await Apartment.find()
+        const apartments = await Apartment.find({syndic: req.user._id}).sort({ createdAt: -1})
+        const bills = await Bill.find({
+            apartment:{$in:apartments.map(apartment=>apartment._id)},
+        })
+        const currentDate = new Date().toLocaleDateString('fr-MA',{
+            year: "2-digit",
+            month: "2-digit"
+        })
+        const apartmentsWithBills = apartments.map(apartment=>{
+            const apartmentBills = bills.filter(bill=>{
+                const isEqual = apartment._id.equals(bill.apartment)
+                const dates = bill.paidAt.map(date=>{
+                    const formattedDate = new Date(date).toLocaleDateString('fr-MA',{
+                        year: "2-digit",
+                        month: "2-digit"
+                    })
+                    return formattedDate === currentDate
+                })
+                const isTrue = dates.includes(true)
+                return isEqual && isTrue
+            })
+            return {
+                ...apartment.toObject(),
+                isPaid: apartmentBills.length > 0
+            }
+        })
         res.status(200).json({
             success: true,
-            apartments
+            apartmentsWithBills,
         })
+
     } catch (error) {
         next(error)
     }

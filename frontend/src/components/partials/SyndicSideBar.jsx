@@ -17,7 +17,7 @@ export default function SyndicSideBar({showSideBar}) {
         <Icon icon="material-symbols:dashboard" className='w-9 h-9'/>
         <p className='text-lg font-bold '>DashBoard</p>
         </div>
-        <div className='flex w-full items-center h-14 gap-3 relative cursor-pointer'>
+        {/* <div className='flex w-full items-center h-14 gap-3 relative cursor-pointer'>
         <Icon icon="ant-design:home-filled" className='w-9 h-9'/>
         <p className='text-lg font-bold '>Apartments</p>
         </div>
@@ -28,7 +28,7 @@ export default function SyndicSideBar({showSideBar}) {
         <div className='flex w-full items-center h-14 gap-3 relative cursor-pointer'>
         <Icon icon="gg:profile" className='w-9 h-9'/>
         <p className='text-lg font-bold '>Profile</p>
-        </div>
+        </div> */}
         <div className='flex w-full items-center h-14 gap-3 cursor-pointer absolute bottom-0' onClick={handleLogout}>
         <Icon icon="solar:logout-2-bold" className='w-9 h-9'/>
         <p className='text-lg font-bold '>LOGOUT</p>
