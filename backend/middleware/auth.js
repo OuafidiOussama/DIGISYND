@@ -54,7 +54,6 @@ isCreatorBill = async (req, res, next)=>{
     const userId = req.user._id.toString()
     const apartmentId = req.params.id
     const bill = await Bill.findOne({apartment: apartmentId})
-    console.log(bill);
     if(!bill){
         return next(new ErrorHandler('No Bill Found', 404))
     }
