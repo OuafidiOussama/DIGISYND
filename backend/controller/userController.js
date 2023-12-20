@@ -34,7 +34,7 @@ login = async (req, res, next)=>{
             return next(new ErrorHandler('Please Provide Your Email Address', 403))
         }
         if(!password){
-            return next(new ErrorHandler('Please Provide A Password', 403 ))
+            throw new ErrorHandler('Please Provide A Password', 403 )
         }
         const user = await User.findOne({email})
         if(!user){
@@ -51,25 +51,6 @@ login = async (req, res, next)=>{
     }
 }
 
-changePassword = async(req, res, next)=>{
-    try {
-        const user = await User.findById(req.user.id)
-        const data = {
-            oldPassword: req.body.oldPassword,
-            newPassword: req.body.newPassword,
-            confirmPassword: req.body.confirmPassword,
-        }
-        if(! await bcrypt.compare(data.oldPassword, user.password)){
-            next(new ErrorHandler('Old Password Is Incorrect !', 403))
-        }
-        if(data.newPassword !== data.confirmPassword){
-            next(new ErrorHandler('Check Your New Password', 403))
-        }
-        
-    } catch (error) {
-        next(error)
-    }
-}
 
 const sendToken = async (user, statusCode, res)=>{
     const token = await user.signJwtToken();
@@ -81,7 +62,8 @@ const sendToken = async (user, statusCode, res)=>{
 }
 
 userProfile = async (req, res, next)=>{
-    const user = await User.findById(req.user.id).select('-password')
+    const userId = req.user.id
+    const user = await User.findById(userId).select('-password')
     res.status(200).json({
         success: true,
         user
@@ -94,4 +76,4 @@ logout = (req,res, next)=>{
         message: "logout Successfully"
     })
 }
-module.exports = {register, login, userProfile, changePassword, logout}
+module.exports = {register, login, userProfile, logout}
