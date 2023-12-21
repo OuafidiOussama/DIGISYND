@@ -63,3 +63,10 @@ http://localhost:3000
     "jsonwebtoken": "^9.0.2"
     "mongoose": "^8.0.2"
 
+
+## UML : 
+![alt text](https://cdn.discordapp.com/attachments/1149715950787100796/1187333290089267271/useCAse.png?ex=6596814b&is=65840c4b&hm=df0d5728e96b94710043b6d458d77a3e07766f5c79487bdfe267771dad7b2350&)
+
+## Backend Testing Coverage:
+![alt text](https://cdn.discordapp.com/attachments/1149715950787100796/1187333399543820298/Coverage.png?ex=65968166&is=65840c66&hm=39bc61fef109e8557840dfb941e1501f4ff0986f81451d8015b26cbd6ae492df&)
+
