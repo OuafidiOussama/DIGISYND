@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     text: {
         margin: 12,
         fontSize: 14,
-        textAlign: "justify",
+        textAlign: "justify",  
     },
     footer: {
         fontSize: 12,
