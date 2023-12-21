@@ -1,0 +1,16 @@
+version: '4'
+services:
+  backend:
+    image: api
+    build: backend
+    ports:
+      - '5000' : '5000'
+  frontend:
+    image: frontend
+    build: frontend
+    ports:
+      - '3000' : '3000'
+  mongo: 
+    image: mongo:latest
+    ports:
+      - '27018' : '27017'
